@@ -1,0 +1,5 @@
+<div class="day-for">
+    <div>{{day | date: 'EE'}}</div>
+    <div *ngIf="TemperatureType.Celsius">{{temperature}}°C</div>
+    <div *ngIf="!TemperatureType.Celsius">{{temperature}}°F</div>
+</div>

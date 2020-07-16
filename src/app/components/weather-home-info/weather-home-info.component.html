@@ -1,0 +1,49 @@
+<div class="warp-container col-12">
+    <!--Search autoComplete  -->
+    <div class="search-form" [formGroup]="search">
+        <div>
+            <p-autoComplete formControlName="city" [suggestions]="cities" field="LocalizedName"
+                (completeMethod)="searchCity($event)" (onSelect)="selectCity($event)" placeholder="Search city"
+                [style]="{'width':'calc(100% - 40px)', 'max-width': '500px' }" [inputStyle]="{'width':'50%'}">
+            </p-autoComplete>
+            <img src="assets/search.png" width="30" class="ml-3">
+        </div>
+        <div *ngIf="func.city.invalid" class="error">
+            <div *ngIf="func.city.errors.pattern">English letters only</div>
+        </div>
+    </div>
+
+    <!--Weather details  -->
+    <div class="warp-city" *ngIf="currentCity">
+        <div class="current-city">
+            <div class="d-flex">
+                <img src="assets/location.png" width="50">
+                <div class="ml-3 my-auto">
+                    <div> {{currentCity?.LocalizedName}}</div>
+                    <div *ngIf="TemperatureType.Celsius">
+                        {{currentForecastInfo?.Temperature?.Metric?.Value}}<span>°C</span></div>
+                    <div *ngIf="!TemperatureType.Celsius">
+                        {{currentForecastInfo?.Temperature?.Imperial?.Value}}<span>°F</span></div>
+                </div>
+            </div>
+
+            <!-- favorite button -->
+            <div class="d-flex pointer" (click)="setFavorite()">
+                <div *ngIf="!currentCity.isFavorite"><img src="assets/heart.png" width="30"> &nbsp; Add to Favorites
+                </div>
+                <div *ngIf="currentCity.isFavorite"><img src="assets/red-heart.png" width="30"> &nbsp; Remove From
+                    Favorites</div>
+            </div>
+        </div>
+
+        <div class="center-big-text mt-4">
+            {{currentForecastInfo?.WeatherText}}
+        </div>
+
+        <!--5 days daily forecast call to ticket component -->
+        <div class="days-row">
+            <app-weather-home-info-ticket class="mt-5 mx-3" *ngFor="let day of todayForecasts" [day]="day.Date"
+                [temperature]="day.Temperature.Maximum.Value"></app-weather-home-info-ticket>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+.image{
+    height:1000px; background-size:cover; width:auto;
+    background-image:url('./../../../assets/main.jpg');
+    background-position:100% 100%;
+  }
+  .celsius{
+    font-weight: bold;
+    color: cornsilk;
+    text-align: center;
+    cursor: pointer;
+}
+@media (max-width: 768px) {
+  .image {
+      display: table;
+  }
+}

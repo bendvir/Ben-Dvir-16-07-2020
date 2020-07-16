@@ -1,0 +1,15 @@
+<div class="warp-container col-12">
+    <!--No favorites  -->
+    <div *ngIf="FavoriteCities.Cities.length == 0" class="center-big-text">There is no favorite yet</div>
+    <!-- my favorites -->
+    <div class="favorite pointer" *ngFor="let favorite of FavoriteCities.Cities; let index = index" routerLink="/"
+        [queryParams]="{ city: favorite.City.LocalizedName, key: favorite.City.Key }">
+        <div class="details">
+            <div>{{favorite.City.LocalizedName}}</div>
+            <div *ngIf="TemperatureType.Celsius">{{favorite.Condition.Temperature.Metric.Value}}°C</div>
+            <div *ngIf="!TemperatureType.Celsius">{{favorite.Condition.Temperature.Imperial.Value}}°F</div>
+            <div>{{favorite.Condition.WeatherText}}</div>
+        </div>
+    </div>
+</div>
+<button class="btn btn-primary btnCahnge" routerLink="/">Back to Home Page</button>
